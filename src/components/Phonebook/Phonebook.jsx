@@ -19,6 +19,21 @@ class Phonebook extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    const contacts = JSON.parse(localStorage.getItem('phonebook'));
+    if (contacts && contacts.length) {
+      this.setState({
+        contacts,
+      });
+    }
+  }
+
+  componentDidUpdate() {
+    const { contacts } = this.state;
+
+    localStorage.setItem('phonebook', JSON.stringify(contacts));
+  }
+
   onDelete = id => {
     this.setState(prevState => {
       return {
